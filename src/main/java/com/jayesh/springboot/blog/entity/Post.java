@@ -1,3 +1,5 @@
+package com.jayesh.springboot.blog.entity;
+
 public class Post {
 
  
@@ -9,5 +11,5 @@ public class Post {
     
     private String content;
     
-    private Set<Comment> comments = new HashSet<>();
+    //private Set<Comment> comments = new HashSet<>();
 }

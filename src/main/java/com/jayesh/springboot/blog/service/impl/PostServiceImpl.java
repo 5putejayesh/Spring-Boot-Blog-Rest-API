@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,10 +35,30 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostDto getPostById(Long id) {
-        Post post = postRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+    public PostDto getPostById(Long postId) {
+        Post post = postRepository.findById(postId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
         return mapToDto(post);
+    }
+
+    @Override
+    public PostDto updatePostById(PostDto postDto,Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
+
+        post.setTitle(postDto.getTitle());
+        post.setDescription(postDto.getDescription());
+        post.setContent(postDto.getContent());
+
+        Post updatedPOst = postRepository.save(post);
+        return mapToDto(updatedPOst);
+    }
+
+    @Override
+    public void deletePostById(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
+        postRepository.delete(post);
     }
 
     private Post mapToEntity(PostDto postDto) {

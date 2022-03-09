@@ -1,6 +1,7 @@
 package com.jayesh.springboot.blog.service.impl;
 
 import com.jayesh.springboot.blog.entity.Post;
+import com.jayesh.springboot.blog.exception.ResourceNotFoundException;
 import com.jayesh.springboot.blog.payload.PostDto;
 import com.jayesh.springboot.blog.repository.PostRepository;
 import com.jayesh.springboot.blog.service.PostService;
@@ -8,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -20,8 +22,8 @@ public class PostServiceImpl implements PostService {
         this.mapper=mapper;
     }
     @Override
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
+    public List<PostDto> getAllPosts() {
+        return postRepository.findAll().stream().map(post->mapToDto(post)).collect(Collectors.toList());
     }
 
     @Override
@@ -29,6 +31,13 @@ public class PostServiceImpl implements PostService {
         //convert DTO to entity
         Post post=mapToEntity(postDto);
         return mapToDto(postRepository.save(post));
+    }
+
+    @Override
+    public PostDto getPostById(Long id) {
+        Post post = postRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+        return mapToDto(post);
     }
 
     private Post mapToEntity(PostDto postDto) {

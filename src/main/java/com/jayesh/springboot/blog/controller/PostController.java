@@ -1,6 +1,5 @@
 package com.jayesh.springboot.blog.controller;
 
-import com.jayesh.springboot.blog.entity.Post;
 import com.jayesh.springboot.blog.payload.PostDto;
 import com.jayesh.springboot.blog.service.PostService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,7 @@ public class PostController {
         this.postService=postService;
     }
     @GetMapping
-    public List<Post> getAllPosts(){
+    public List<PostDto> getAllPosts(){
 
         return postService.getAllPosts();
     }
@@ -28,5 +27,10 @@ public class PostController {
     @PostMapping
     public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto){
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{postId}")
+    public PostDto getPOstById(@PathVariable(name="postId") Long id){
+        return postService.getPostById(id);
     }
 }

@@ -1,7 +1,6 @@
 package com.jayesh.springboot.blog.exception;
 
 import com.jayesh.springboot.blog.payload.ErrorDetails;
-import org.apache.tomcat.jni.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -16,7 +16,7 @@ public class SpringBootBlogRestApiApplication {
 
 	public static void main(String[] args) {
 
-        SpringApplication.run(SpringBootBlogRestApiApplication.class, args);
+        SpringApplication.run(SpringBootBlogRestApiApplication.class, args)
     }
 
 }

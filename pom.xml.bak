@@ -62,7 +62,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<finalName>Spring-Boot-Blog-Rest-API</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
